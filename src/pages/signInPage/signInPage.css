@@ -1,0 +1,38 @@
+.signin-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .background-section {
+    flex: 3;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .form-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 50px; /* Adjust padding to your preference */
+  }
+  
+  .form-container {
+    width: 100%; /* Use 100% of the form-section */
+  }
+  
+  .form-header {
+    text-align: left;
+    margin-bottom: 24px; /* Space between header and form */
+  }
+  
+  .login-form {
+    max-width: 300px; /* Set the max-width of the form to your preference */
+    width: 100%;
+  }
+  
+  .login-form-button,
+  .signup-form-button {
+    width: calc(50% - 4px); /* Subtracting 4px to account for the gap */
+    margin-right: 4px; /* Add a small gap between buttons */
+  }
