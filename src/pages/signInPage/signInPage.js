@@ -25,6 +25,10 @@ function SignInPage() {
     setLoading(false);
   };
 
+  const navigateToSignUp = () => {
+    navigate('/signup', {replace: true})
+  }
+
   return (
     <div className="signin-container">
       <div className="background-section" style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -64,6 +68,7 @@ function SignInPage() {
               <Button 
                 type="default" 
                 className="signup-form-button" 
+                onClick={navigateToSignUp}
               >
                 Sign Up
               </Button>
