@@ -1,0 +1,24 @@
+.signup-container {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* .chalmers-logo-container {
+    flex: 1;
+    background-color: aqua;
+} */
+
+  .form-container-sign-up {
+    flex: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkorchid;
+  }
+
+  .form-section-sign-up {
+    width: 30%;
+    padding: 20px;
+    height: 70%;
+    background-color: beige;
+  }
