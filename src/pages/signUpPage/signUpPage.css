@@ -18,7 +18,17 @@
 
   .form-section-sign-up {
     width: 30%;
-    padding: 20px;
+    padding: 20px 70px;
     height: 70%;
     background-color: beige;
+  }
+
+  .signup-form{
+    height: 100%;
+    /* background-color: aqua; */
+  }
+
+  .signup-form-item{
+    /* background-color: brown; */
+    margin: 10px;
   }
