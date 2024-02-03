@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { AuthContext } from '../../AuthContext'
-import { Form, Input, Button, Card } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import backgroundImage from '../../asserts/images/sign-in.jpg'
 
@@ -9,20 +9,23 @@ import './signInPage.css'; // Import custom CSS for additional styling
 
 
 function SignInPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate(); // Initialize useNavigate
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log('Received values of form: ', values);
     setLoading(true);
-    login({username, password});
-    navigate("/");
-    // Here you would handle the login logic, possibly sending a request to your server
-    // After the request:
-    setLoading(false);
+    try {
+      await login(values);
+      navigate("/");
+      // Here you would handle the login logic, possibly sending a request to your server
+      // After the request:
+      setLoading(false);
+    } catch (error) {
+      message.error('Incorrect email or password'); // Show error message on failure
+      setLoading(false);
+    }
   };
 
   const navigateToSignUp = () => {
@@ -43,12 +46,12 @@ function SignInPage() {
             onFinish={onFinish}
           >
             <Form.Item
-              name="username"
-              rules={[{ required: true, message: 'Please input your Username!' }]}
+              name="email"
+              rules={[{ required: true, message: 'Please input your Email!' }]}
             >
               <Input 
                 prefix={<UserOutlined className="site-form-item-icon" />} 
-                placeholder="Username or email" 
+                placeholder="email" 
               />
             </Form.Item>
             <Form.Item

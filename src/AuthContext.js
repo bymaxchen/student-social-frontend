@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { login as logininApi } from './api/api';
 
 // Create the context
 export const AuthContext = createContext();
@@ -8,16 +9,22 @@ export const AuthProvider = ({ children }) => {
     localStorage.getItem("isAuthenticated") === "true"
   );
 
-  const login = (credentials) => {
-    // Here, you'd handle the login logic, e.g., verifying credentials, setting tokens, etc.
-    setIsAuthenticated(true);
-    localStorage.setItem("isAuthenticated", "true");
+  const login = async (credentials) => {
+    try {
+      await logininApi(credentials);
+
+      setIsAuthenticated(true);
+      localStorage.setItem('isAuthenticated', true);
+    } catch (error) {
+      throw error;
+    }
+
   };
 
   const logout = () => {
     // Clear any auth tokens, user data, etc.
     setIsAuthenticated(false);
-    localStorage.removeItem("isAuthenticated");
+    localStorage.setItem('isAuthenticated', false);
   };
 
   return (

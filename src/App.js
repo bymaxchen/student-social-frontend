@@ -1,9 +1,12 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate  } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import HomePage from './pages/homePage/homePage'
 import PostPage from './pages/postPage/postPage'
 import SigninPage from './pages/signInPage/signInPage'
 import SignUpPage from './pages/signUpPage/signUpPage';
 import ProtectedRoute from './ProtectedRoute';
+
+import "./App.css";
 
 function App() {
   return (
