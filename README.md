@@ -3,6 +3,9 @@
 ## Overview
 The Student Social Frontend is a dynamic web application designed to offer students a platform for social interaction, content sharing, and community engagement. Built with React and leveraging Ant Design for its user interface components. Axios is used as the HTTP client for efficient communication with the backend services.
 
+## Screenshots
+![Alt text](image.png)
+
 ## Features
 - **User Interface**: Utilizes Ant Design for a modern, responsive design that enhances user interaction.
 - **Authentication**: Supports sign-in/sign-up functionalities, securely integrated with the backend through Axios.
