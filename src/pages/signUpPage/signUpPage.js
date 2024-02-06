@@ -45,16 +45,39 @@ function SignUpPage() {
                 <Radio.Group>
                     <Radio.Button value="female">Female</Radio.Button>
                     <Radio.Button value="male">Male</Radio.Button>
+                    <Radio.Button value="other">Other</Radio.Button>
+
                 </Radio.Group>
             </Form.Item>
             <Form.Item className="signup-form-item" label="Birthday" required tooltip="This is a required field"          >
               <DatePicker />
             </Form.Item>
-            <Form.Item className="signup-form-item" label="Password" required tooltip="This is a required field"          >
-              <Input placeholder="Password" />
+            <Form.Item className="signup-form-item" label="Password" required tooltip="This is a required field" 
+            
+            >
+              <Input.Password placeholder="Password" />
             </Form.Item>
-            <Form.Item className="signup-form-item" label="Confirm Password" required tooltip="This is a required field"          >
-              <Input placeholder="Confirm Password" />
+            <Form.Item className="signup-form-item" label="Confirm Password" required tooltip="This is a required field"
+            rules={[
+              {
+                required: true,
+                message: 'Please confirm your password!',
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error('The new password that you entered do not match!'));
+                },
+              }),
+            ]}            >
+              <Input.Password placeholder="Confirm Password" />
+            </Form.Item>
+            <Form.Item className="signup-form-item">
+              <Button type='primary' htmlType='submit'>
+                Create Account
+              </Button>
             </Form.Item>
             </Form>
           </div>
