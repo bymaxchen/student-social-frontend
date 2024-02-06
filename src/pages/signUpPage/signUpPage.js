@@ -89,9 +89,12 @@ function SignUpPage() {
               <Button type='primary' htmlType='submit'>
                 Create Account
               </Button>
-            </Form.Item>            </Form>
+            </Form.Item>            
+          </Form>
           </div>
         </div>
+        {/* <div className="chalmers-logo-container">
+        </div> */}
     </div>
 
   )
