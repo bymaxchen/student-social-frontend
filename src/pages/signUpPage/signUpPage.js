@@ -80,7 +80,7 @@ function SignUpPage() {
             </Form.Item>
             <PasswordChecklist
                 rules={["minLength", "specialChar", "number", "capital"]}
-                minLength={5}
+                minLength={10}
                 value={password}
                 valueAgain={passwordAgain}
                 onChange={(isValid) => {}}
