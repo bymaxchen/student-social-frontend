@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { AuthContext } from '../../AuthContext'
 import { Form, Input, Button, Card, DatePicker, Radio } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import PasswordChecklist from "react-password-checklist"
+
 
 import ChalmersLogo from '../../asserts/images/sign-up.svg'
 
@@ -14,6 +16,7 @@ function SignUpPage() {
   const [loading, setLoading] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate(); // Initialize useNavigate
+  const [passwordAgain, setPasswordAgain] = useState(''); // Add state to track the confirmation password
 
   return (
 
@@ -41,7 +44,7 @@ function SignUpPage() {
             <Form.Item className="signup-form-item" label="Last Name" required tooltip="This is a required field"          >
               <Input placeholder="Last Name" />
             </Form.Item>
-            <Form.Item className="signup-form-item" label="Gender" required tooltip="This is a required field"          >
+            <Form.Item className="signup-form-item" label="Gender" tooltip="This is a required field"          >
                 <Radio.Group>
                     <Radio.Button value="female">Female</Radio.Button>
                     <Radio.Button value="male">Male</Radio.Button>
@@ -52,34 +55,41 @@ function SignUpPage() {
             <Form.Item className="signup-form-item" label="Birthday" required tooltip="This is a required field"          >
               <DatePicker />
             </Form.Item>
-            <Form.Item className="signup-form-item" label="Password" required tooltip="This is a required field" 
-            
+            <Form.Item name="password" className="signup-form-item" label="Password" required tooltip="This is a required field"
+              rules={[{ required: true }]}
             >
-              <Input.Password placeholder="Password" />
+              <Input.Password placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </Form.Item>
-            <Form.Item className="signup-form-item" label="Confirm Password" required tooltip="This is a required field"
-            rules={[
-              {
-                required: true,
-                message: 'Please confirm your password!',
-              },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue('password') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(new Error('The new password that you entered do not match!'));
+            <Form.Item name="confirm" className="signup-form-item" label="Confirm Password" required tooltip="This is a required field"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please confirm your password!',
                 },
-              }),
-            ]}            >
-              <Input.Password placeholder="Confirm Password" />
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('The passwords that you entered do not match!'));
+                  },
+                }),
+              ]}            
+            >
+              <Input.Password placeholder="Confirm Password" value={passwordAgain} onChange={(e) => setPasswordAgain(e.target.value)} />
             </Form.Item>
+            <PasswordChecklist
+                rules={["minLength", "specialChar", "number", "capital"]}
+                minLength={5}
+                value={password}
+                valueAgain={passwordAgain}
+                onChange={(isValid) => {}}
+            />
             <Form.Item className="signup-form-item">
               <Button type='primary' htmlType='submit'>
                 Create Account
               </Button>
-            </Form.Item>
-            </Form>
+            </Form.Item>            </Form>
           </div>
         </div>
         {/* <div className="chalmers-logo-container">
