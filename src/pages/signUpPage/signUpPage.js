@@ -92,8 +92,6 @@ function SignUpPage() {
             </Form.Item>            </Form>
           </div>
         </div>
-        {/* <div className="chalmers-logo-container">
-        </div> */}
     </div>
 
   )
