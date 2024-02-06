@@ -60,6 +60,13 @@ function SignUpPage() {
             >
               <Input.Password placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </Form.Item>
+            <PasswordChecklist
+                rules={["minLength", "specialChar", "number", "capital"]}
+                minLength={10}
+                value={password}
+                valueAgain={passwordAgain}
+                onChange={(isValid) => {}}
+            />
             <Form.Item name="confirm" className="signup-form-item" label="Confirm Password" required tooltip="This is a required field"
               rules={[
                 {
@@ -78,13 +85,6 @@ function SignUpPage() {
             >
               <Input.Password placeholder="Confirm Password" value={passwordAgain} onChange={(e) => setPasswordAgain(e.target.value)} />
             </Form.Item>
-            <PasswordChecklist
-                rules={["minLength", "specialChar", "number", "capital"]}
-                minLength={10}
-                value={password}
-                valueAgain={passwordAgain}
-                onChange={(isValid) => {}}
-            />
             <Form.Item className="signup-form-item">
               <Button type='primary' htmlType='submit'>
                 Create Account
