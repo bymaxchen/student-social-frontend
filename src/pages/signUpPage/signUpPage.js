@@ -58,7 +58,7 @@ function SignUpPage() {
             <Form.Item className="signup-form-item" label="Confirm Password" required tooltip="This is a required field"          >
               <Input.Password placeholder="Confirm Password" />
             </Form.Item>
-            <Form.Item>
+            <Form.Item className="signup-form-item">
               <Button type='primary' htmlType='submit'>
                 Create Account
               </Button>

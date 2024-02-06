@@ -23,6 +23,7 @@
     width: auto;
     padding: 20px 70px;
     background-color: white;
+    border-radius: 20px;
   }
 
   .signup-form{
@@ -35,6 +36,6 @@
     margin: 10px;
   }
 
-  button .signup-form-item{
-    margin: 20px 0 0 10px;
+  .signup-form-item button {
+    margin: 20px 0 0 0;
   }
