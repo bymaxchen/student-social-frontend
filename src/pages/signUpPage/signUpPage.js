@@ -45,16 +45,23 @@ function SignUpPage() {
                 <Radio.Group>
                     <Radio.Button value="female">Female</Radio.Button>
                     <Radio.Button value="male">Male</Radio.Button>
+                    <Radio.Button value="other">Other</Radio.Button>
+
                 </Radio.Group>
             </Form.Item>
             <Form.Item className="signup-form-item" label="Birthday" required tooltip="This is a required field"          >
               <DatePicker />
             </Form.Item>
             <Form.Item className="signup-form-item" label="Password" required tooltip="This is a required field"          >
-              <Input placeholder="Password" />
+              <Input.Password placeholder="Password" />
             </Form.Item>
             <Form.Item className="signup-form-item" label="Confirm Password" required tooltip="This is a required field"          >
-              <Input placeholder="Confirm Password" />
+              <Input.Password placeholder="Confirm Password" />
+            </Form.Item>
+            <Form.Item>
+              <Button type='primary' htmlType='submit'>
+                Create Account
+              </Button>
             </Form.Item>
             </Form>
           </div>

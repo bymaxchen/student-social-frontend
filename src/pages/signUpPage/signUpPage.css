@@ -13,14 +13,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: darkorchid;
+    background-color: beige;
+    background-size: cover;
+    background-position:center ;
+    background-image: url("C:\Users\julia\student-social-frontend\src\asserts\images\sign-in.jpg");
   }
 
   .form-section-sign-up {
-    width: 30%;
+    width: auto;
     padding: 20px 70px;
-    height: 70%;
-    background-color: beige;
+    background-color: white;
   }
 
   .signup-form{
@@ -31,4 +33,8 @@
   .signup-form-item{
     /* background-color: brown; */
     margin: 10px;
+  }
+
+  button .signup-form-item{
+    margin: 20px 0 0 10px;
   }
