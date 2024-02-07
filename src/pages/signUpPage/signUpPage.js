@@ -132,6 +132,7 @@ function SignUpPage() {
                     },
                   }),
                 ]}
+                
             >
               <Input.Password
                 placeholder="Confirm Password"
