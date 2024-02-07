@@ -32,21 +32,32 @@ function SignUpPage() {
   const handleSubmit = async () => {
     setLoading(true);
 
+    // real one
+    // const formData = {
+    //   cid,
+    //   username,
+    //   firstName,
+    //   lastName,
+    //   gender,
+    //   birthday: birthday ? moment(birthday).format('YYYY-MM-DD') : null,
+    //   password,
+    // };
+
+    // experimental
     const formData = {
-      cid,
-      username,
-      firstName,
-      lastName,
-      gender,
-      birthday: birthday ? moment(birthday).format('YYYY-MM-DD') : null,
-      password,
+      // id: "g",
+      name: "g",
+      email: "g",
+      // birthday: birthday ? moment(birthday).format('YYYY-MM-DD') : null,
+      password: "g",
     };
 
     try {
       // Substitute 'http://localhost:8081/api/signup' with your actual backend endpoint
       const response = await axios.post('http://localhost:8081/api/signup', formData);
+      
       console.log(response.data);
-      navigate('/success'); // Redirect upon successful signup, replace '/success' with your route
+      navigate('/home'); // Redirect upon successful signup, replace '/success' with your route
     } catch (error) {
       console.error(error.response || error.message);
     } finally {
