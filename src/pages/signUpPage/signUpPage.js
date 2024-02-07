@@ -25,7 +25,7 @@ function SignUpPage() {
 
   useEffect(() => {
     const arePasswordsMatching = password && password === passwordAgain;
-    const isAllFieldsFilled = cid && username && firstName && lastName && gender && birthday && arePasswordsMatching;
+    const isAllFieldsFilled = cid && username && firstName && lastName && birthday && arePasswordsMatching;
     setIsButtonDisabled(!isAllFieldsFilled);
   }, [cid, username, firstName, lastName, gender, birthday, password, passwordAgain]);
 
@@ -53,22 +53,6 @@ function SignUpPage() {
       setLoading(false);
     }
   };
-
-
-  useEffect(() => {
-    // Add all required fields in this condition
-    const isFilled = cid && username && firstName && lastName && gender && birthday && password && confirmPassword;
-    setIsFormFilled(isFilled);
-  }, [cid, username, firstName, lastName, gender, birthday, password, confirmPassword]); // Dependency array includes all field states
-
-  const handleCidChange = (e) => setCid(e.target.value);
-  const handleUsernameChange = (e) => setUsername(e.target.value);
-  const handleFirstNameChange = (e) => setFirstName(e.target.value);
-  const handleLastNameChange = (e) => setLastName(e.target.value);
-  const handleGenderChange = (e) => setGender(e.target.value);
-  const handleBirthdayChange = (date) => setBirthday(date);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-  const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
 
   return (
     <div className="signup-container">
