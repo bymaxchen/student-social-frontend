@@ -94,7 +94,14 @@ function SignUpPage() {
               <DatePicker onChange={date => setBirthday(date)} />
             </Form.Item>
 
-            <Form.Item label="Password" required tooltip="This is a required field">
+            <Form.Item name="password" label="Password" required tooltip="This is a required field"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                },
+              ]}
+            >
               <Input.Password
                 placeholder="Password"
                 value={password}
@@ -110,7 +117,22 @@ function SignUpPage() {
               onChange={isValid => {}}
             />
 
-            <Form.Item label="Confirm Password" required tooltip="This is a required field">
+            <Form.Item name="confirm" label="Confirm Password" required tooltip="This is a required field" dependencies={["password"]}
+              rules={[
+                  {
+                    required: true,
+                    message: 'Please confirm your password!',
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue('password') === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('The passwords that you entered do not match!'));
+                    },
+                  }),
+                ]}
+            >
               <Input.Password
                 placeholder="Confirm Password"
                 value={passwordAgain}
