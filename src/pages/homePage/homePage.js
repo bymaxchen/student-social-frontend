@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../AuthContext'
 import { Button } from 'antd';
 import {getPostList} from '../../api/api';
-
+import './homePage.css'; // Import custom CSS for additional styling
 
 function HomePage() {
   const { logout } = useContext(AuthContext);
@@ -26,8 +26,16 @@ function HomePage() {
 
   return (
     <div>
-      <h1>Welcome to the Student Social Platform</h1>
-      <Button type="primary"  onClick={handleLogout}>logout</Button>
+      <div className='header'>
+          <div className='logo-div'>
+            <p>Logo</p>
+          </div>
+          <div className='cp-button'>
+            <Button>Create Post</Button>
+          </div>
+    </div>
+    <h1>Welcome to the Student Social Platform</h1>
+    <Button type="primary"  onClick={handleLogout}>logout</Button>
     </div>
   );
 }
