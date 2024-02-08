@@ -38,7 +38,7 @@ function SignInPage() {
       </div>
       <div className="form-section">
         <div className="form-container">
-          <h1 className="form-header">Student Social Life</h1>
+          <h1 className="form-header">CampusHub</h1>
           <Form
             name="normal_login"
             className="login-form"

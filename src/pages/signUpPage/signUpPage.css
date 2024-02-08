@@ -1,0 +1,41 @@
+.signup-container {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* .chalmers-logo-container {
+    flex: 1;
+    background-color: aqua;
+} */
+
+  .form-container-sign-up {
+    flex: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: beige;
+    background-size: cover;
+    background-position:center ;
+    background-image: url('../../asserts/images/sign-in.jpg');
+  }
+
+  .form-section-sign-up {
+    width: 20%;
+    padding: 20px 70px;
+    background-color: white;
+    border-radius: 20px;
+  }
+
+  .signup-form{
+    height: 100%;
+    /* background-color: aqua; */
+  }
+
+  .signup-form-item{
+    /* background-color: brown; */
+    margin: 10px;
+  }
+
+  .signup-form-item button {
+    margin: 20px 0 0 0;
+  }
