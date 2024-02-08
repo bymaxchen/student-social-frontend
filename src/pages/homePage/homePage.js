@@ -1,8 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../AuthContext'
-import { Button } from 'antd';
 import {getPostList} from '../../api/api';
 import './homePage.css'; // Import custom CSS for additional styling
+import PopUp from 'reactjs-popup';
+// import 'reactjs-popup/dist/index.css';
+import { Form, Input, Button, TextArea } from 'antd';
 
 function HomePage() {
   const { logout } = useContext(AuthContext);
@@ -24,6 +26,53 @@ function HomePage() {
     logout();
   };
 
+  const PostPopUp = () => (
+    <PopUp trigger={<Button>Create Post</Button>} modal >
+      <div className='popup'>
+        <div className='popup-header'>
+          <div className='popup-header-username'>
+            <h2>
+              username
+            </h2>
+          </div>
+          <div className='popup-header-close-button'>
+            <Button>
+              X
+            </Button>
+          </div>
+        </div>
+        <div>
+          <Form
+            layout='vertical'
+            name='post'
+            className='post-form'
+            initialValues={{ remember: true }}
+            // onFinish={whatever}
+          >
+            <Form.Item>
+              <Input placeholder='Title'/>
+            </Form.Item>
+            <Form.Item>
+              <Input.TextArea className='text_area' placeholder='Content' autoSize={{minRows: 5, maxRows :20}} showCount maxLength={10000}/>
+            </Form.Item>
+            <Form.Item>
+              <Button>
+                Add attachement
+              </Button>
+              <Button>
+                POST!!!
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+
+      </div>
+
+    </PopUp>
+
+  )
+
+
   return (
     <div>
       <div className='header'>
@@ -31,7 +80,7 @@ function HomePage() {
             <p>Logo</p>
           </div>
           <div className='cp-button'>
-            <Button>Create Post</Button>
+            <PostPopUp/>
           </div>
     </div>
     <h1>Welcome to the Student Social Platform</h1>

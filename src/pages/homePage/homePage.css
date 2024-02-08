@@ -20,3 +20,38 @@
     padding-right: 10px;
 }
 
+.popup{
+  background-color: aquamarine;
+  min-width: 500px;
+  max-height: 100%;
+  border-radius: 20px;
+  border-style:groove;
+  border-color: darkred;
+  padding: 20px;
+}
+
+.popup-header{
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+  "username close_button";
+  flex-direction: row;
+  /* background-color: aqua; */
+}
+
+.popup-header-username{
+  /* background-color: yellowgreen; */
+  grid-area: username;
+}
+.popup-header-close-button{
+  grid-area: close_button;
+  /* background-color: aqua; */
+  align-self: center;
+  justify-self: right;
+  padding-right: 10px;
+}
+
+.text_area {
+  /* min-height: 150px; */
+}
