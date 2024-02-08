@@ -5,16 +5,18 @@
     grid-template-areas: 
     "logo button";
     flex-direction: row;
-    background-color: beige;
+    /* background-color: aqua; */
 }
 
 .logo-div{
-    background-color: yellowgreen;
+    /* background-color: yellowgreen; */
     grid-area: logo;
 }
 .cp-button{
     grid-area: button;
-    background-color: aqua;
-    align-self: end;
+    /* background-color: aqua; */
+    align-self: center;
+    justify-self: right;
+    padding-right: 10px;
 }
 
