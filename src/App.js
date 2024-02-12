@@ -4,6 +4,7 @@ import HomePage from './pages/homePage/homePage'
 import PostPage from './pages/postPage/postPage'
 import SigninPage from './pages/signInPage/signInPage'
 import SignUpPage from './pages/signUpPage/signUpPage';
+import ProfilePage from './pages/profile/profilePage';
 import ProtectedRoute from './ProtectedRoute';
 
 import "./App.css";
@@ -16,6 +17,7 @@ function App() {
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/post/:postId" element={<ProtectedRoute><PostPage /></ProtectedRoute>} />
       </Routes>
     </Router>
