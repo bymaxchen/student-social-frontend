@@ -9,7 +9,7 @@ import moment from 'moment'; // Ensure moment is installed
 import './signUpPage.css';
 
 function SignUpPage() {
-  const [cid, setCid] = useState('');
+  const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -25,16 +25,16 @@ function SignUpPage() {
 
   useEffect(() => {
     const arePasswordsMatching = password && password === passwordAgain;
-    const isAllFieldsFilled = cid && username && firstName && lastName && birthday && arePasswordsMatching;
+    const isAllFieldsFilled = email && username && firstName && lastName && birthday && arePasswordsMatching;
     setIsButtonDisabled(!isAllFieldsFilled);
-  }, [cid, username, firstName, lastName, gender, birthday, password, passwordAgain]);
+  }, [email, username, firstName, lastName, gender, birthday, password, passwordAgain]);
 
   const handleSubmit = async () => {
     setLoading(true);
 
     // real one
     // const formData = {
-    //   cid,
+    //   email,
     //   username,
     //   firstName,
     //   lastName,
@@ -47,7 +47,7 @@ function SignUpPage() {
     const formData = {
       // id: "g",
       name: username,
-      email: cid,
+      email: email,
       // birthday: birthday ? moment(birthday).format('YYYY-MM-DD') : null,
       password: password,
     };
@@ -77,8 +77,8 @@ function SignUpPage() {
             initialValues={{ remember: true }}
             onFinish={handleSubmit}
           >
-            <Form.Item className="signup-form-item" label="CID" required tooltip="This is a required field">
-              <Input placeholder="CID" value={cid} onChange={e => setCid(e.target.value)} />
+            <Form.Item className="signup-form-item" label="Email" required tooltip="This is a required field">
+              <Input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
             </Form.Item>
 
             <Form.Item className="signup-form-item" label="Username" required tooltip="This is a required field">
