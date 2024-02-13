@@ -8,6 +8,9 @@
     background-color: aqua;
 } */
 
+  .form-header-signup{
+    margin-top: 5px;
+  }
   .form-container-sign-up {
     flex: 10;
     display: flex;
@@ -37,5 +40,5 @@
   }
 
   .signup-form-item button {
-    margin: 20px 0 0 0;
+    margin: 10px 0 0 0;
   }
