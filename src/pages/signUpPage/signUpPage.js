@@ -9,12 +9,12 @@ import moment from 'moment'; // Ensure moment is installed
 import './signUpPage.css';
 
 function SignUpPage() {
-  const [cid, setCid] = useState('');
+  const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
   const [gender, setGender] = useState('');
-  const [birthday, setBirthday] = useState(null);
+  const [birthdate, setbirthdate] = useState(null);
   const [password, setPassword] = useState('');
   const [passwordAgain, setPasswordAgain] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -25,32 +25,32 @@ function SignUpPage() {
 
   useEffect(() => {
     const arePasswordsMatching = password && password === passwordAgain;
-    const isAllFieldsFilled = cid && username && firstName && lastName && birthday && arePasswordsMatching;
+    const isAllFieldsFilled = email && username && firstname && lastname && birthdate && arePasswordsMatching;
     setIsButtonDisabled(!isAllFieldsFilled);
-  }, [cid, username, firstName, lastName, gender, birthday, password, passwordAgain]);
+  }, [email, username, firstname, lastname, gender, birthdate, password, passwordAgain]);
 
   const handleSubmit = async () => {
     setLoading(true);
 
     // real one
-    // const formData = {
-    //   cid,
-    //   username,
-    //   firstName,
-    //   lastName,
-    //   gender,
-    //   birthday: birthday ? moment(birthday).format('YYYY-MM-DD') : null,
-    //   password,
-    // };
-
-    // experimental
     const formData = {
-      // id: "g",
-      name: username,
-      email: cid,
-      // birthday: birthday ? moment(birthday).format('YYYY-MM-DD') : null,
-      password: password,
+      email,
+      username,
+      firstname,
+      lastname,
+      gender,
+      birthdate: birthdate ? moment(birthdate).format('YYYY-MM-DD') : null,
+      password,
     };
+
+    // // experimental
+    // const formData = {
+    //   // id: "g",
+    //   name: username,
+    //   email: email,
+    //   // birthdate: birthdate ? moment(birthdate).format('YYYY-MM-DD') : null,
+    //   password: password,
+    // };
 
     try {
       // Substitute 'http://localhost:8081/api/signup' with your actual backend endpoint
@@ -77,8 +77,8 @@ function SignUpPage() {
             initialValues={{ remember: true }}
             onFinish={handleSubmit}
           >
-            <Form.Item className="signup-form-item" label="CID" required tooltip="This is a required field">
-              <Input placeholder="CID" value={cid} onChange={e => setCid(e.target.value)} />
+            <Form.Item className="signup-form-item" label="Email" required tooltip="This is a required field">
+              <Input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
             </Form.Item>
 
             <Form.Item className="signup-form-item" label="Username" required tooltip="This is a required field">
@@ -86,11 +86,11 @@ function SignUpPage() {
             </Form.Item>
 
             <Form.Item className="signup-form-item" label="First Name" required tooltip="This is a required field">
-              <Input placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)} />
+              <Input placeholder="First Name" value={firstname} onChange={e => setFirstName(e.target.value)} />
             </Form.Item>
 
             <Form.Item className="signup-form-item" label="Last Name" required tooltip="This is a required field">
-              <Input placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)} />
+              <Input placeholder="Last Name" value={lastname} onChange={e => setLastName(e.target.value)} />
             </Form.Item>
 
             <Form.Item className="signup-form-item" label="Gender">
@@ -101,8 +101,8 @@ function SignUpPage() {
               </Radio.Group>
             </Form.Item>
 
-            <Form.Item className="signup-form-item" label="Birthday" required tooltip="This is a required field">
-              <DatePicker onChange={date => setBirthday(date)} />
+            <Form.Item className="signup-form-item" label="Birthdate" required tooltip="This is a required field">
+              <DatePicker onChange={date => setbirthdate(date)} />
             </Form.Item>
 
             <Form.Item className="signup-form-item" name="password" label="Password" required tooltip="This is a required field"
