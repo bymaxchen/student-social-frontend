@@ -46,10 +46,10 @@ function SignUpPage() {
     // experimental
     const formData = {
       // id: "g",
-      name: "g",
-      email: "g",
+      name: username,
+      email: cid,
       // birthday: birthday ? moment(birthday).format('YYYY-MM-DD') : null,
-      password: "g",
+      password: password,
     };
 
     try {
