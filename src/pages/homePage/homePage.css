@@ -20,13 +20,22 @@
     padding-right: 10px;
 }
 
+.x_button{
+  height: 40px;
+  width: 40px;
+  border-radius: 200000000px;
+}
+
 .popup{
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
+  background-color: lightcyan;
   min-width: 500px;
   max-height: 100%;
   border-radius: 20px;
-  border-style:groove;
-  border-color: darkred;
+  border: 20px;
+  /* border-style:outset; */
+  /* border-color: blue; */
+  box-shadow:  20px 20px 50px grey;
   padding: 20px;
 }
 
@@ -52,6 +61,32 @@
   padding-right: 10px;
 }
 
-.text_area {
-  /* min-height: 150px; */
+.buttons{
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+  "attachment post";
+  flex-direction: row;
+  margin-top: 50px;
+  /* background-color: brown; */
+}
+
+.attachement_button{
+  grid-area: attachment;
+  height: 50px;
+  align-self: center;
+  justify-self: left;
+  border-radius: 1000000px;
+
+}
+
+.post_button{
+  grid-area: post;
+  align-self: center;
+  justify-self: right;
+  height: 50px;
+  width: 150px;
+  border-radius: 1000000px;
+
 }

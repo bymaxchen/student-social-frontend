@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../AuthContext'
 import {getPostList} from '../../api/api';
 import './homePage.css'; // Import custom CSS for additional styling
@@ -33,7 +33,7 @@ function HomePage() {
     <PopUp trigger={<Button>Create Post</Button>} modal>
       {
         close => (
-          <div className='popup'>
+        <div className='popup'>
           <div className='popup-header'>
             <div className='popup-header-username'>
               <h2>
@@ -41,7 +41,7 @@ function HomePage() {
               </h2>
             </div>
             <div className='popup-header-close-button'>
-              <Button onClick={() => close()}>
+              <Button className='x_button' onClick={() => close()}>
                 X
               </Button>
             </div>
@@ -60,15 +60,15 @@ function HomePage() {
               <Form.Item>
                 <Input.TextArea value={post} className='text_area' onChange={e => setPost(e.target.value)} placeholder='Content' autoSize={{minRows: 5, maxRows :20}} showCount maxLength={10000}/>
               </Form.Item>
-              <Form.Item>
-                <Button>
-                  Add attachement
-                </Button>
-                <Button>
-                  POST!!!
-                </Button>
-              </Form.Item>
-            </Form>
+              </Form>
+          </div>
+          <div className='buttons'>
+            <Button className='attachement_button'>
+              Add attachement
+            </Button>
+            <Button className='post_button'>
+              POST!!!
+            </Button>
           </div>
   
         </div>
