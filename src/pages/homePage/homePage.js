@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../AuthContext'
-import { Button } from 'antd';
 import HeaderBar from '../../components/common/header/HeaderBar';
 import {getPostList} from '../../api/api';
 import './homePage.css'; // Import custom CSS for additional styling
@@ -87,6 +86,8 @@ function HomePage() {
     <>
       <HeaderBar></HeaderBar>
     </>
+  
+
   );
 }
 

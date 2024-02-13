@@ -1,13 +1,3 @@
-.header{
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 
-    "logo button";
-    flex-direction: row;
-    /* background-color: aqua; */
-}
-
 .logo-div{
     /* background-color: yellowgreen; */
     grid-area: logo;
