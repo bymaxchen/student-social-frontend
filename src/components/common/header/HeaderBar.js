@@ -70,7 +70,20 @@ const HeaderBar = () => {
         </Header> 
     
         <Modal title="Create Post" open={open} onOk={handleOk} onCancel={handleCancel} confirmLoading={confirmLoading}>
-        <p>Hello</p>
+        <Form
+              layout='vertical'
+              name='post'
+              className='post-form'
+              initialValues={{ remember: true }}
+              // onFinish={whatever}
+            >
+              <Form.Item>
+                <Input placeholder='Title' value={title} onChange={e => setTitle(e.target.value)}/>
+              </Form.Item>
+              <Form.Item>
+                <Input.TextArea value={post} className='text_area' onChange={e => setPost(e.target.value)} placeholder='Content' autoSize={{minRows: 5, maxRows :20}} showCount maxLength={10000}/>
+              </Form.Item>
+              </Form>
         </Modal>
     </>
     );
