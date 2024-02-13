@@ -40,6 +40,16 @@ export const login = async ({email, password}) => {
   }
 };
 
+// Logout Function
+export const logout = async () => {
+  try {
+    await api.post('/users/logout');
+  } catch (error) {
+    console.error('Logout error:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
 // get post list
 export const getPostList = async () => {
   const response = await api.get('/posts');
