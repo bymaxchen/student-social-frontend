@@ -87,7 +87,7 @@ function HomePage() {
             <p>Logo</p>
           </div>
           <div className='cp-button'>
-            <PostPopUp/>
+            {/* <PostPopUp/> */}
           </div>
     </div>
     <h1>Welcome to the Student Social Platform</h1>
