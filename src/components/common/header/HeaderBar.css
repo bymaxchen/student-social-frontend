@@ -18,18 +18,24 @@
   width: auto; /* Adjust the width automatically based on the height to maintain aspect ratio */
 }
   
-  .search {
-    max-width: 400px;
-  }
-  
-  .menu {
-    width: 350px;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .menu .ant-menu-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.search {
+  max-width: 30%;
+}
+
+.menu {
+  width: 350px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.menu .ant-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ant-btn css-dev
+.special_button_atch{
+  align-self: left;
+  justify-self: left;
+}

@@ -4,6 +4,8 @@ import { Layout, Menu, Input, Modal, Button, Form } from 'antd';
 import { useNavigate, Link, useLocation  } from 'react-router-dom';
 import { RedditOutlined, MessageOutlined, PlusOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import './HeaderBar.css';
+import axios from 'axios'; // Ensure axios is installed
+
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -17,7 +19,9 @@ const HeaderBar = () => {
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [modalText, setModalText] = useState('Content of the modal');
     const [title, setTitle] = useState('');
-    const [post, setPost] = useState('');
+    const [content, setContent] = useState('');
+    const [loading, setLoading] = useState(false);
+
 
 
     const showModal = () => {
@@ -25,13 +29,29 @@ const HeaderBar = () => {
       };
 
     
-    const handleOk = () => {
+    const handleOk = async () => {
         setModalText('The modal will be closed after two seconds');
         setConfirmLoading(true);
         setTimeout(() => {
           setOpen(false);
           setConfirmLoading(false);
         }, 2000);
+
+        const formData = {
+          title,
+          content,
+        };
+
+        try {
+          // Substitute 'http://localhost:8081/api/signup' with your actual backend endpoint
+          const response = await axios.post('/api/posts/create', formData);
+          
+          console.log(response.data);
+        } catch (error) {
+          console.error(error.response || error.message);
+        } finally {
+          setLoading(false);
+        }
       };
 
 
@@ -69,8 +89,14 @@ const HeaderBar = () => {
             </Menu>
         </Header> 
     
-        <Modal title="Create Post" open={open} onOk={handleOk} onCancel={handleCancel} confirmLoading={confirmLoading}>
-        <Form
+        <Modal okText="Post" title="Create Post" open={open} onOk={handleOk} onCancel={handleCancel} confirmLoading={confirmLoading} footer={(_, { OkBtn, CancelBtn }) => (
+          <>
+            <Button className='special_button_atch'>Add Image</Button>
+            <CancelBtn />
+            <OkBtn />
+          </>
+        )}>
+          <Form
               layout='vertical'
               name='post'
               className='post-form'
@@ -81,9 +107,11 @@ const HeaderBar = () => {
                 <Input placeholder='Title' value={title} onChange={e => setTitle(e.target.value)}/>
               </Form.Item>
               <Form.Item>
-                <Input.TextArea value={post} className='text_area' onChange={e => setPost(e.target.value)} placeholder='Content' autoSize={{minRows: 5, maxRows :20}} showCount maxLength={10000}/>
+                <Input.TextArea value={content} className='text_area' onChange={e => setContent(e.target.value)} placeholder='Content' autoSize={{minRows: 5, maxRows :20}} showCount maxLength={10000}/>
               </Form.Item>
-              </Form>
+            </Form>
+            
+
         </Modal>
     </>
     );
