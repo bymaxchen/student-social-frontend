@@ -77,23 +77,23 @@ function SignUpPage() {
             initialValues={{ remember: true }}
             onFinish={handleSubmit}
           >
-            <Form.Item label="CID" required tooltip="This is a required field">
+            <Form.Item className="signup-form-item" label="CID" required tooltip="This is a required field">
               <Input placeholder="CID" value={cid} onChange={e => setCid(e.target.value)} />
             </Form.Item>
 
-            <Form.Item label="Username" required tooltip="This is a required field">
+            <Form.Item className="signup-form-item" label="Username" required tooltip="This is a required field">
               <Input placeholder="Username" value={username} onChange={e => setUsername(e.target.value)} />
             </Form.Item>
 
-            <Form.Item label="First Name" required tooltip="This is a required field">
+            <Form.Item className="signup-form-item" label="First Name" required tooltip="This is a required field">
               <Input placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)} />
             </Form.Item>
 
-            <Form.Item label="Last Name" required tooltip="This is a required field">
+            <Form.Item className="signup-form-item" label="Last Name" required tooltip="This is a required field">
               <Input placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)} />
             </Form.Item>
 
-            <Form.Item label="Gender">
+            <Form.Item className="signup-form-item" label="Gender">
               <Radio.Group value={gender} onChange={e => setGender(e.target.value)}>
                 <Radio value="female">Female</Radio>
                 <Radio value="male">Male</Radio>
@@ -101,11 +101,11 @@ function SignUpPage() {
               </Radio.Group>
             </Form.Item>
 
-            <Form.Item label="Birthday" required tooltip="This is a required field">
+            <Form.Item className="signup-form-item" label="Birthday" required tooltip="This is a required field">
               <DatePicker onChange={date => setBirthday(date)} />
             </Form.Item>
 
-            <Form.Item name="password" label="Password" required tooltip="This is a required field"
+            <Form.Item className="signup-form-item" name="password" label="Password" required tooltip="This is a required field"
               rules={[
                 {
                   required: true,
@@ -128,7 +128,7 @@ function SignUpPage() {
               onChange={isValid => {}}
             />
 
-            <Form.Item name="confirm" label="Confirm Password" required tooltip="This is a required field" dependencies={["password"]}
+            <Form.Item className="signup-form-item" name="confirm" label="Confirm Password" required tooltip="This is a required field" dependencies={["password"]}
               rules={[
                   {
                     required: true,
@@ -151,7 +151,7 @@ function SignUpPage() {
               />
             </Form.Item>
 
-            <Form.Item>
+            <Form.Item className="signup-form-item">
             <Button type="primary" htmlType="submit" disabled={isButtonDisabled || loading}>
                 Create Account
               </Button>
