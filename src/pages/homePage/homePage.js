@@ -1,94 +1,53 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../AuthContext'
+import React, { useState, useEffect } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import HeaderBar from '../../components/common/header/HeaderBar';
-import {getPostList} from '../../api/api';
-import './homePage.css'; // Import custom CSS for additional styling
-import PopUp from 'reactjs-popup';
-// import 'reactjs-popup/dist/index.css';
-import { Form, Input, Button, TextArea } from 'antd';
+import Sidebar from '../../components/common/sidebar/sidebar';
+import { Spin } from 'antd';
+import Post from '../../components/business/post/post';
+import { getHomePostList } from '../../api/api';
 
+const HomePage = () => {
+  const [posts, setPosts] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
 
-function HomePage() {
-  const { logout } = useContext(AuthContext);
-  const [title, setTitle] = useState('');
-  const [post, setPost] = useState('');
-  
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await getPostList();
-      } catch (error) {
-        console.error('There was an error!', error);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
-
-  const handleLogout = async () => {
-    await logout();
+  // Dummy function to simulate fetching posts from a backend
+  // Replace with your actual fetch call
+  const fetchPosts = async (page) => {
+    // Example URL: replace with your backend endpoint
+    const response = await getHomePostList(page);
+    return response; // Adjust according to your API response structure
   };
 
-  const PostPopUp = () => (
-    <PopUp trigger={<Button>Create Post</Button>} modal>
-      {
-        close => (
-        <div className='popup'>
-          <div className='popup-header'>
-            <div className='popup-header-username'>
-              <h2>
-                username
-              </h2>
-            </div>
-            <div className='popup-header-close-button'>
-              <Button className='x_button' onClick={() => close()}>
-                X
-              </Button>
-            </div>
-          </div>
-          <div>
-            <Form
-              layout='vertical'
-              name='post'
-              className='post-form'
-              initialValues={{ remember: true }}
-              // onFinish={whatever}
-            >
-              <Form.Item>
-                <Input placeholder='Title' value={title} onChange={e => setTitle(e.target.value)}/>
-              </Form.Item>
-              <Form.Item>
-                <Input.TextArea value={post} className='text_area' onChange={e => setPost(e.target.value)} placeholder='Content' autoSize={{minRows: 5, maxRows :20}} showCount maxLength={10000}/>
-              </Form.Item>
-              </Form>
-          </div>
-          <div className='buttons'>
-            <Button className='attachement_button'>
-              Add attachement
-            </Button>
-            <Button className='post_button'>
-              POST!!!
-            </Button>
-          </div>
-  
-        </div>
-  
-          )
+  const loadPosts = (page) => {
+    fetchPosts(page).then(newPosts => {
+      if (newPosts.length === 0) {
+        setHasMore(false);
+        return;
       }
-    </PopUp>
-
-  )
-
+      setPosts([...posts, ...newPosts]);
+    });
+  };
 
   return (
-
     <>
-      <HeaderBar></HeaderBar>
+     <HeaderBar/>
+     <Sidebar/>
+    <InfiniteScroll
+      pageStart={0}
+      loadMore={loadPosts}
+      hasMore={hasMore}
+      loader={<Spin key={0} />}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {posts.map((post, index) => (
+          <Post key={index} {...post} />
+        ))}
+      </div>
+    </InfiniteScroll>   
+    
     </>
-  
 
   );
-}
+};
 
 export default HomePage;

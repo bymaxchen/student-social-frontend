@@ -10,6 +10,7 @@ import {
 } from '@ant-design/icons';
 import './profilePage.css';
 import HeaderBar from '../../components/common/header/HeaderBar';
+import Sidebar from '../../components/common/sidebar/sidebar';
 
 class ProfilePage extends React.Component {
   state = {
@@ -23,9 +24,9 @@ class ProfilePage extends React.Component {
     // Retrieve profile information from localStorage
     this.setState({
       email: localStorage.getItem('email'),
-      username: localStorage.getItem('userName'),
-      gender: localStorage.getItem('gender') || "Male",
-      birthday: localStorage.getItem('birthday') || "2000-12-12",
+      username: localStorage.getItem('username'),
+      gender: localStorage.getItem('gender'),
+      birthday: localStorage.getItem('birthdate'),
     });
   }
 
@@ -35,6 +36,7 @@ class ProfilePage extends React.Component {
     return (
       <>
         <HeaderBar/>
+        <Sidebar/>
         <div className="profile-container">
         <Card
           title={<span><UserOutlined /> My Profile</span>}

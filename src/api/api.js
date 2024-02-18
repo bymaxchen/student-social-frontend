@@ -30,8 +30,10 @@ export const login = async ({email, password}) => {
     });
 
     localStorage.setItem('id', response.data.id);
-    localStorage.setItem('userName', response.data.name);
+    localStorage.setItem('username', response.data.username);
     localStorage.setItem('email', response.data.email);
+    localStorage.setItem('gender', response.data.gender);
+    localStorage.setItem('birthdate', response.data.birthdate);
 
     return response.data;
   } catch (error) {
@@ -50,9 +52,9 @@ export const logout = async () => {
   }
 };
 
-// get post list
-export const getPostList = async () => {
-  const response = await api.get('/posts');
+// get home post list
+export const getHomePostList = async (page) => {
+  const response = await api.get(`/posts/homeposts?page=${page}`);
   return response.data; 
 };
 
