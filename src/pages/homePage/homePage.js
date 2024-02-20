@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import HeaderBar from '../../components/common/header/HeaderBar';
 import Sidebar from '../../components/common/sidebar/sidebar';

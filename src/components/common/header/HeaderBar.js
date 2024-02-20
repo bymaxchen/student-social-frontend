@@ -1,11 +1,30 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../../AuthContext';
-import { Layout, Menu, Input, Modal, Button, Form } from 'antd';
+import { Layout, Menu, Input, Modal, Button, Form, Upload } from 'antd';
 import { useNavigate, Link, useLocation  } from 'react-router-dom';
-import { RedditOutlined, MessageOutlined, PlusOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
+import { MessageOutlined, PlusOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import './HeaderBar.css';
 import axios from 'axios'; // Ensure axios is installed
+import { UploadOutlined } from '@ant-design/icons';
 
+
+const props = {
+  name: 'file',
+  action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
+  headers: {
+    authorization: 'authorization-text',
+  },
+  onChange(info) {
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+};
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -91,7 +110,9 @@ const HeaderBar = () => {
     
         <Modal okText="Post" title="Create Post" open={open} onOk={handleOk} onCancel={handleCancel} confirmLoading={confirmLoading} footer={(_, { OkBtn, CancelBtn }) => (
           <>
-            <Button className='special_button_atch'>Add Image</Button>
+            <Upload {...props} className='special_button_atch'>
+              <Button icon={<UploadOutlined />} >Add Image</Button>
+            </Upload>
             <CancelBtn />
             <OkBtn />
           </>
