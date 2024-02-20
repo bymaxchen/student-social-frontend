@@ -8,7 +8,7 @@
 
 .logo {
   display: flex;
-  align-items: center; /* This ensures vertical centering of the logo image */
+  align-items: center; /* This ensures vertical centering of the logo images */
   margin-right: 24px;
 }
 

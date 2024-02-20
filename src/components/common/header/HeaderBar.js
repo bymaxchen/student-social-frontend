@@ -115,7 +115,7 @@ const HeaderBar = () => {
         <Header className="header">
             <div className="logo">
                 <Link to="/">
-                    <img src='/images/logo.png'  alt="Logo" ></img>
+                    <img src='/images/logo/logo.png'  alt="Logo" ></img>
                 </Link>
             </div>
             <Search placeholder="Search CampusHub" className="search" />
