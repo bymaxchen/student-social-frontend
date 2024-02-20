@@ -25,9 +25,10 @@ const Post = ({ title, username: author, content, createTime, isAnonymous, likes
         <span key="time">{displayTime}</span>,
       ]}
     >
-        {imageUrl && <img src={imageUrl} alt="Card" style={{ width: '100%' }} />}
+
       <p><UserOutlined style={{ marginRight: 8 }}/>{isAnonymous ? 'Anonymous' : author}</p>
       <p style={{ color: '#555' }}>{content}</p>
+        {imageUrl && <img src={imageUrl} alt="Card" style={{ width: '100%' }} />}
     </Card>
   );
 };
