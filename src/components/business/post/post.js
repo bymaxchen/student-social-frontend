@@ -10,7 +10,7 @@ const getRandomColor = () => {
   return colors[randomIndex];
 };
 
-const Post = ({ title, username: author, content, createTime, isAnonymous, likes }) => {
+const Post = ({ title, username: author, content, createTime, isAnonymous, likes, imageUrl }) => {
   const isToday = moment(createTime).isSame(moment(), 'day');
   const displayTime = isToday ? moment(createTime).fromNow() : moment(createTime).format('MMMM Do YYYY, h:mm:ss a');
   const borderColor = getRandomColor(); // Get a random color for the border
@@ -25,6 +25,7 @@ const Post = ({ title, username: author, content, createTime, isAnonymous, likes
         <span key="time">{displayTime}</span>,
       ]}
     >
+        {imageUrl && <img src={imageUrl} alt="Card" style={{ width: '100%' }} />}
       <p><UserOutlined style={{ marginRight: 8 }}/>{isAnonymous ? 'Anonymous' : author}</p>
       <p style={{ color: '#555' }}>{content}</p>
     </Card>
