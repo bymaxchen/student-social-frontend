@@ -41,13 +41,13 @@ const HeaderBar = () => {
           title,
           content,
         };
-
+console.log(formData)
         if (file) {
           const formData = new FormData();
           formData.append('file', file); // Assuming 'file' is the expected field name
           
           try {
-            await axios.post('http://localhost:8081/api/pictures/upload', formData, {
+            await axios.post('/api/pictures/upload', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
