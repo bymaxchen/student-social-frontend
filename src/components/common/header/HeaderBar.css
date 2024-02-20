@@ -34,8 +34,27 @@
   justify-content: center;
 }
 
-.ant-btn css-dev
-.special_button_atch{
-  align-self: left;
-  justify-self: left;
+.ant-modal-footer{
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 90px 50px;
+  grid-template-areas: 
+  "image cancel post";
+  flex-direction: row;
+}
+
+.ant-btn-primary{
+  grid-area: post;
+  width: fit-content;
+  justify-self: right;
+}
+
+.ant-btn-default{
+  grid-area: cancel;
+  width: fit-content;
+}
+
+.ant-upload-wrapper{
+  grid-area: image;
+  width: fit-content;
 }
