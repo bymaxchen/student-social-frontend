@@ -41,17 +41,19 @@ const HeaderBar = () => {
           title,
           content,
         };
-console.log(formData)
+        let imageUrl;
         if (file) {
           const formData = new FormData();
           formData.append('file', file); // Assuming 'file' is the expected field name
-          
+
           try {
-            await axios.post('/api/pictures/upload', formData, {
+            const response = await axios.post('/api/pictures/upload', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
             });
+             imageUrl = response.data;
+            console.log(imageUrl)
             message.success('File uploaded successfully');
             } catch (error) {
               console.error('File upload error:', error.response || error.message);
@@ -60,6 +62,7 @@ console.log(formData)
           }
           
         try {
+            formData.imageUrl=imageUrl;
           // Substitute 'http://localhost:8081/api/signup' with your actual backend endpoint
           const response = await axios.post('/api/posts/create', formData);
           
