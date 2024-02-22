@@ -65,7 +65,7 @@ const HeaderBar = () => {
             formData.imageUrl=imageUrl;
           // Substitute 'http://localhost:8081/api/signup' with your actual backend endpoint
           const response = await axios.post('/api/posts/create', formData);
-          
+          window.location.reload();
           console.log(response.data);
         } catch (error) {
           console.error(error.response || error.message);
