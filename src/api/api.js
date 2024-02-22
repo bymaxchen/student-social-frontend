@@ -52,6 +52,15 @@ export const logout = async () => {
   }
 };
 
+export const getCurrentUser = async () => {
+  try {
+    const response =await api.get('/users/currentuser');
+    return response.data;
+  } catch (error) {
+    console.error('getCurrentUser error:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
 // get home post list
 export const getHomePostList = async (page) => {
   const response = await api.get(`/posts/homeposts?page=${page}`);
