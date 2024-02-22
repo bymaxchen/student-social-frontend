@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate  } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import HomePage from './pages/homePage/homePage'
-import PostPage from './pages/postPage/postPage'
+import PostDetailPage from './pages/postDetailPage/postDetailPage';
 import SigninPage from './pages/signInPage/signInPage'
 import SignUpPage from './pages/signUpPage/signUpPage';
 import ProfilePage from './pages/profile/profilePage';
@@ -18,7 +18,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/post/:postId" element={<ProtectedRoute><PostPage /></ProtectedRoute>} />
+        <Route path="/posts/:postId" element={<ProtectedRoute><PostDetailPage /></ProtectedRoute>} />
       </Routes>
     </Router>
   );

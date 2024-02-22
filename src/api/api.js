@@ -67,9 +67,21 @@ export const getHomePostList = async (page) => {
   return response.data; 
 };
 
+// get home post list
+export const getOnePost = async (id) => {
+  const response = await api.get(`/posts/${id}`);
+  return response.data; 
+};
+
 // like
 export const like = async (id) => {
   const response = await api.put(`/posts/likes?id=${id}`);
+  return response.data; 
+};
+
+// get comments
+export const getComments = async (id) => {
+  const response = await api.get(`/posts/comments?postId=${id}`);
   return response.data; 
 };
 
