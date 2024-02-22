@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Input, Button } from 'antd';
+import { Input, Button, List, Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons'
 import './chatPage.css';
 
 const ChatPage = () => {
@@ -32,19 +33,26 @@ const ChatPage = () => {
     }
   };
 
+  const contacts = ['Person1', 'Person2', 'Person3', 'Person4']
+
   return (
     <div className="chat-container">
-      <div className="chat-list">
-        {/* List of chats */}
-        <div>Chat 1</div>
-        <div>Chat 2</div>
-        {/* Add more chats as needed */}
-      </div>
+      <div className="chat-sidebar">
+                <List
+                    dataSource={contacts}
+                    renderItem={item => (
+                        <List.Item>
+                            <Avatar icon={<UserOutlined />} />
+                            <div className="chat-sidebar-name">{item}</div>
+                        </List.Item>
+                    )}
+                />
+        </div>
       <div className="chat-window">
         <div className="messages-container">
           {/* Messages will go here */}
           {messages.map((message, index) => (
-            <div key={index}>{message}</div>
+            <div key={index} className='message-bubble sent'>{message} </div>
           ))}
           <div ref={messagesEndRef} /> {/* Invisible element to scroll to */}
         </div>
