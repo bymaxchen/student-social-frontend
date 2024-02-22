@@ -67,4 +67,10 @@ export const getHomePostList = async (page) => {
   return response.data; 
 };
 
+// like
+export const like = async (id) => {
+  const response = await api.put(`/posts/likes?id=${id}`);
+  return response.data; 
+};
+
 export default api;
