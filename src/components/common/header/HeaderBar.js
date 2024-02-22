@@ -12,7 +12,7 @@ const { Header } = Layout;
 const { Search } = Input;
 
 
-const HeaderBar = () => {
+const HeaderBar = ({ reloadPosts }) => {
     const navigate = useNavigate(); // Initialize useNavigate
     const location = useLocation();
     const { logout } = useContext(AuthContext);
@@ -65,7 +65,8 @@ const HeaderBar = () => {
             formData.imageUrl=imageUrl;
           // Substitute 'http://localhost:8081/api/signup' with your actual backend endpoint
           const response = await axios.post('/api/posts/create', formData);
-          window.location.reload();
+          //window.location.reload();
+            reloadPosts();
           console.log(response.data);
         } catch (error) {
           console.error(error.response || error.message);

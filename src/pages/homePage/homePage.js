@@ -27,10 +27,15 @@ const HomePage = () => {
       setPosts([...posts, ...newPosts]);
     });
   };
-
+    const reloadPosts = async () => {
+        // Fetch and reload posts
+        const updatedPosts = await fetchPosts(0); // Fetch the latest posts starting from page 0
+        setPosts(updatedPosts); // Update the posts state with the latest posts
+        setHasMore(true); // Reset hasMore flag if necessary
+    };
   return (
     <>
-     <HeaderBar/>
+     <HeaderBar reloadPosts={reloadPosts}/>
      <Sidebar/>
     <InfiniteScroll
       pageStart={0}
