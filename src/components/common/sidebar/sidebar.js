@@ -7,7 +7,7 @@ const { Sider } = Layout;
 
 const Sidebar = () => {
   return (
-    <Sider width={200} style={{ height: '100vh', position: 'fixed', left: 0, overflow: 'auto' }}>
+    <Sider width={200} style={{ height: '50vh', position: 'fixed', left: 0, overflow: 'auto', marginTop: 90 }}>
       <Menu
         mode="inline"
         defaultSelectedKeys={[]}

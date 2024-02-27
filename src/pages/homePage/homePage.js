@@ -35,20 +35,29 @@ const HomePage = () => {
     };
   return (
     <>
-     <HeaderBar reloadPosts={reloadPosts}/>
-     <Sidebar/>
-    <InfiniteScroll
-      pageStart={0}
-      loadMore={loadPosts}
-      hasMore={hasMore}
-      loader={<Spin key={0} />}
-    >
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {posts.map((post, index) => (
-          <Post key={index} {...post} />
-        ))}
+      <HeaderBar reloadPosts={reloadPosts}/>
+      <Sidebar/>
+      <div 
+        id="scrollableDiv" 
+        style={{
+          height: 80,
+        }}
+      >
+
       </div>
-    </InfiniteScroll>   
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={loadPosts}
+          hasMore={hasMore}
+          loader={<Spin key={0} />}
+          scrollableTarget="scrollableDiv"
+        >
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {posts.map((post, index) => (
+            <Post key={index} {...post} />
+          ))}
+        </div>
+      </InfiniteScroll>   
     
     </>
 
