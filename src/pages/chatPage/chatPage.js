@@ -35,7 +35,7 @@ const ChatPage = () => {
     }
   };
 
-  const contacts = ['Person1', 'Person2', 'Person3', 'Person4']
+  const contacts = ['Katheryn Winnick', 'Megan Fox', 'Taylor Swift', 'Madison Beer']
 
   return (
     <>
