@@ -7,10 +7,9 @@
 
 .chat-sidebar {
   width: 25%;
-  max-width: 400px;
+  max-width: 300px;
   overflow-y: auto; /* Enables scrolling for the chat list */
   border-right: 1px solid #ccc; /* Visually separates the chat list from the chat window */
-  padding: 10px 20px;
   background-color: #29537a;
 }
 
@@ -42,8 +41,23 @@
 }
 
 .chat-sidebar-name {
-  margin-left: 10px;
+  padding-right: 10px;
   color: #fff;
+}
+
+.ant-list .ant-list-item{
+  padding: 10px 10px;
+}
+.ant-list-item:hover{
+  background-color:#04294d;
+}
+
+.ant-list-item:focus{
+  background-color: red;
+}
+
+.active-chat {
+  background-color:#007bff; /* Choose any color you like */
 }
 
 .message-bubble {
