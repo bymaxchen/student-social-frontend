@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { } from 'react';
 import HomePage from './pages/homePage/homePage'
 import ChatPage from './pages/chatPage/chatPage'
-// import PostPage from './pages/postDetailPage/postDetailPage'
 import PostDetailPage from './pages/postDetailPage/postDetailPage';
 import SigninPage from './pages/signInPage/signInPage'
 import SignUpPage from './pages/signUpPage/signUpPage';
