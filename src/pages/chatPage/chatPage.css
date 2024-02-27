@@ -7,7 +7,7 @@
 
 .chat-sidebar {
   width: 25%;
-  max-width: 300px;
+  /* max-width: 300px; */
   overflow-y: auto; /* Enables scrolling for the chat list */
   border-right: 1px solid #ccc; /* Visually separates the chat list from the chat window */
   background-color: #29537a;
@@ -90,3 +90,23 @@
 #send-button{
 margin-left: 10px;
 }
+
+.scroll-to-bottom-button {
+  position: fixed;
+  right: 40%; 
+  bottom: 70px; 
+  z-index: 1000; 
+}
+
+
+/* .scroll-to-bottom-button {
+  position: fixed;
+  right: 25px; 
+  bottom: 100px; 
+  z-index: 1000; 
+}
+
+.chat-container {
+  overflow-y: auto;
+  height: 500px; 
+} */

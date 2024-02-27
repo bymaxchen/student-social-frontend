@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Input, Button, List, Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, DownOutlined } from '@ant-design/icons';
 import HeaderBar from '../../components/common/header/HeaderBar';
 
 import './chatPage.css';
@@ -9,7 +9,9 @@ const ChatPage = () => {
   const [activeChat, setActiveChat] = useState(null);
   const [chatHistories, setChatHistories] = useState({});
   const [inputValue, setInputValue] = useState('');
+  const [showScrollButton, setShowScrollButton] = useState(false);
   const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
 
   // Initial welcome message for each contact
   const initialMessages = {
@@ -27,8 +29,23 @@ const ChatPage = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleScroll = () => {
+    const isAtBottom =
+      messagesContainerRef.current.scrollHeight - messagesContainerRef.current.scrollTop <=
+      messagesContainerRef.current.clientHeight;
+    setShowScrollButton(!isAtBottom);
+  };
+
   useEffect(() => {
     scrollToBottom();
+    // Add scroll listener
+    const messagesContainer = messagesContainerRef.current;
+    messagesContainer.addEventListener('scroll', handleScroll);
+
+    return () => {
+      // Remove scroll listener on cleanup
+      messagesContainer.removeEventListener('scroll', handleScroll);
+    };
   }, [chatHistories, activeChat]);
 
   const handleSendMessage = () => {
@@ -52,7 +69,11 @@ const ChatPage = () => {
     }
   };
 
-  const contacts = ['Katheryn Winnick', 'Megan Fox', 'Taylor Swift', 'Madison Beer']
+  const handleContactClick = (contact) => {
+    setActiveChat(contact);
+  };
+
+  const contacts = ['Person1', 'Person2', 'Person3', 'Person4'];
 
   return (
     <>
@@ -62,8 +83,10 @@ const ChatPage = () => {
           <List
             dataSource={contacts}
             renderItem={(item) => (
-              <List.Item onClick={() => handleContactClick(item)}
-              className={activeChat === item ? 'active-chat' : ''}>
+              <List.Item
+                onClick={() => handleContactClick(item)}
+                className={activeChat === item ? 'active-chat' : ''}
+              >
                 <Avatar icon={<UserOutlined />} />
                 <div className="chat-sidebar-name">{item}</div>
               </List.Item>
@@ -71,7 +94,7 @@ const ChatPage = () => {
           />
         </div>
         <div className="chat-window">
-          <div className="messages-container">
+          <div className="messages-container" ref={messagesContainerRef} onScroll={handleScroll}>
             {activeChat &&
               chatHistories[activeChat].map((message, index) => (
                 <div key={index} className="message-bubble sent">
@@ -80,6 +103,14 @@ const ChatPage = () => {
               ))}
             <div ref={messagesEndRef} /> {/* Invisible element to scroll to */}
           </div>
+          {showScrollButton && (
+            <Button
+              shape="circle"
+              icon={<DownOutlined />}
+              className="scroll-to-bottom-button"
+              onClick={scrollToBottom}
+            />
+          )}
           {activeChat && (
             <div className="input-container">
               <Input
