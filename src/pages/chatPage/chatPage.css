@@ -1,6 +1,8 @@
 .chat-container {
   display: flex;
-  height: 100vh;
+  height: 93vh;
+  /* background-color: #007bff; */
+  padding-top: 7vh;
 }
 
 .chat-list {

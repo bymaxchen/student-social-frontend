@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Input, Button, List, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons'
+import HeaderBar from '../../components/common/header/HeaderBar';
+
 import './chatPage.css';
 
 const ChatPage = () => {
@@ -36,6 +38,8 @@ const ChatPage = () => {
   const contacts = ['Person1', 'Person2', 'Person3', 'Person4']
 
   return (
+    <>
+    <HeaderBar/>
     <div className="chat-container">
       <div className="chat-sidebar">
                 <List
@@ -67,6 +71,7 @@ const ChatPage = () => {
         </div>
       </div>
     </div>
+  </>
   );
 };
 
