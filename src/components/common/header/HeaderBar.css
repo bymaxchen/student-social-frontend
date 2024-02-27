@@ -27,9 +27,10 @@
 }
 
 .menu {
-  width: 350px;
+  width: 400px;
   display: flex;
   justify-content: flex-end;
+  padding-right: 20px;
 }
 
 .menu .ant-menu-item {
