@@ -5,6 +5,8 @@ import Sidebar from '../../components/common/sidebar/sidebar';
 import { Spin } from 'antd';
 import Post from '../../components/business/post/post';
 import { getHomePostList } from '../../api/api';
+import './homePage.css';
+
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);

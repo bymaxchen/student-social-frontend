@@ -4,6 +4,8 @@ import { LikeOutlined, UserOutlined, ClockCircleOutlined } from '@ant-design/ico
 import { like } from '../../../api/api';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
+import './post.css';
+
 
 // Function to generate a random color
 const getRandomColor = () => {
@@ -15,6 +17,7 @@ const getRandomColor = () => {
 const Post = ({ id, title, username: author, content, createTime, isAnonymous, likes: initialLikes, imageUrl }) => {
   const navigate = useNavigate();
   const [likes, setLikes] = useState(initialLikes);
+  const [liked, setLiked] = useState(false);
   const isToday = moment(createTime).isSame(moment(), 'day');
   const displayTime = isToday ? moment(createTime).fromNow() : moment(createTime).format('MMMM Do YYYY, h:mm:ss a');
   const borderColor = getRandomColor(); // Assuming getRandomColor is defined elsewhere
@@ -32,19 +35,24 @@ const Post = ({ id, title, username: author, content, createTime, isAnonymous, l
   // Function to handle like click
   const handleLikeClick = async (e) => {
     stopPropagation(e);
-    // Here you should call your like API
-    // For demonstration, we'll just increment the likes count
-    const updatedLikes = likes + 1;
+    const isAlreadyLiked = liked;
+    setLiked(!isAlreadyLiked);
+    const likeChange = isAlreadyLiked ? -1 : 1;
+    const updatedLikes = likes + likeChange;
     setLikes(updatedLikes);
     
     // If you have an API to call, you might do something like:
     try {
-      const response = await like(id); // Assume likePostApiCall is your API call function
+      const response = await like(id); // Your API call to like the post
       if (response.success) {
-        setLikes(response.likes);
+        // Update the likes count from the response if needed
+        // setLikes(response.likes); // Uncomment if you want to use the count from the backend
       }
     } catch (error) {
       console.error('Failed to like the post:', error);
+      // Revert the like state if the API call fails
+      setLiked(isAlreadyLiked);
+      setLikes(likes);
     }
   };
 
@@ -54,7 +62,12 @@ const Post = ({ id, title, username: author, content, createTime, isAnonymous, l
       title={<div style={{ display: 'flex', alignItems: 'center' }}>{title}</div>}
       style={{ width: 600, margin: 'auto', marginBottom: '20px', borderLeft: `6px solid ${borderColor}`, boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', cursor: 'pointer' }}
       actions={[
-        <LikeOutlined key="like" className="like-btn"onClick={handleLikeClick} />,
+        <LikeOutlined
+          key="like"
+          onClick={handleLikeClick}
+          id={liked ? 'active-like-btn' : ''}
+        />
+        ,
         <span key="likes" onClick={stopPropagation}>{likes} Likes</span>,
         <span key="time">{displayTime}</span>,
       ]}
