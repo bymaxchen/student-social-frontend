@@ -67,7 +67,7 @@ const ChatPage = () => {
             onKeyPress={handleKeyPress}
             placeholder="Type a message..."
           />
-          <Button type="primary" onClick={handleSendMessage}>Send</Button>
+          <Button id="send-button" type="primary" onClick={handleSendMessage}>Send</Button>
         </div>
       </div>
     </div>
