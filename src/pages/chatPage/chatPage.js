@@ -15,10 +15,19 @@ const ChatPage = () => {
 
   // Initial welcome message for each contact
   const initialMessages = {
-    Person1: ['Welcome to Person1 chat!'],
-    Person2: ['Welcome to Person2 chat!'],
-    Person3: ['Welcome to Person3 chat!'],
-    Person4: ['Welcome to Person4 chat!'],
+    Person1: [{ text: 'Welcome to Person1 chat!', sender: 'Person1' }],
+    Person2: [{ text: 'Welcome to Person2 chat!', sender: 'Person2' }],
+    Person3: [{ text: 'Welcome to Person3 chat!', sender: 'Person3' }],
+    Person4: [{ text: 'Welcome to Person4 chat!', sender: 'Person4' }],
+  };
+
+  const simulateResponse = () => {
+    // Here you can define how the "other person" generates a response.
+    // This is a simple static example:
+    return {
+      text: `Thanks for your message! This is a simulated response.`,
+      sender: activeChat, // The "other person" is the active chat contact
+    };
   };
 
   useEffect(() => {
@@ -50,9 +59,13 @@ const ChatPage = () => {
 
   const handleSendMessage = () => {
     if (inputValue.trim() !== '') {
+      const userMessage = {
+        text: inputValue,
+        sender: 'Me',
+      };
       const newChatHistories = {
         ...chatHistories,
-        [activeChat]: [...chatHistories[activeChat], inputValue],
+        [activeChat]: [...chatHistories[activeChat], userMessage, simulateResponse()],
       };
       setChatHistories(newChatHistories);
       setInputValue('');
@@ -95,12 +108,14 @@ const ChatPage = () => {
         </div>
         <div className="chat-window">
           <div className="messages-container" ref={messagesContainerRef} onScroll={handleScroll}>
-            {activeChat &&
-              chatHistories[activeChat].map((message, index) => (
-                <div key={index} className="message-bubble sent">
-                  {message}
-                </div>
-              ))}
+          {activeChat &&
+            chatHistories[activeChat].map((message, index) => (
+              <div key={index} className={`message-bubble ${message.sender === 'Me' ? 'sent' : 'received'}`}>
+                <div>{message.text}</div>
+                {/* <div className="message-sender">{message.sender}</div> */}
+              </div>
+            ))
+          }
             <div ref={messagesEndRef} /> {/* Invisible element to scroll to */}
           </div>
           {showScrollButton && (
