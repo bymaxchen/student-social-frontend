@@ -1,19 +1,25 @@
 .chat-container {
   display: flex;
-  height: 100vh;
+  height: 93vh;
+  /* background-color: #007bff; */
+  padding-top: 7vh;
 }
 
-.chat-list {
-  width: 30%;
+.chat-sidebar {
+  width: 25%;
+  /* max-width: 300px; */
   overflow-y: auto; /* Enables scrolling for the chat list */
   border-right: 1px solid #ccc; /* Visually separates the chat list from the chat window */
-  padding: 10px;
+  background-color: #29537a;
 }
 
 .chat-window {
-  width: 70%;
+  width: 100vw;
   display: flex;
   flex-direction: column;
+  align-self: right;
+  justify-self: right;
+  background-color:whitesmoke;
 }
 
 .messages-container {
@@ -26,6 +32,7 @@
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  background-color: rgb(230, 227, 227);
   border-top: 1px solid #ccc; /* Visually separates the input box from the messages */
 }
 
@@ -34,14 +41,24 @@
   /* margin-right: 10px;  */
 }
 
-.chat-sidebar {
-  width: 240px;
-  border-right: 1px solid #ccc;
-  overflow-y: auto;
+.chat-sidebar-name {
+  padding-right: 10px;
+  color: #fff;
 }
 
-.chat-sidebar-name {
-  margin-left: 10px;
+.ant-list .ant-list-item{
+  padding: 10px 10px;
+}
+.ant-list-item:hover{
+  background-color:#04294d;
+}
+
+.ant-list-item:focus{
+  background-color: red;
+}
+
+.active-chat {
+  background-color:#007bff; /* Choose any color you like */
 }
 
 .message-bubble {
@@ -60,7 +77,7 @@
 
 /* If you add received messages */
 .received {
-  background-color: #ccc;
+  background-color: rgb(132, 132, 132);
   margin-right: auto; /* Aligns received messages to the left */
   border-bottom-left-radius: 0; /* Optional: adjusts the bubble shape for received messages */
 }
@@ -70,3 +87,27 @@
   flex-direction: column;
   /* Keep existing styles */
 }
+
+#send-button{
+margin-left: 10px;
+}
+
+.scroll-to-bottom-button {
+  position: fixed;
+  right: 40%; 
+  bottom: 70px; 
+  z-index: 1000; 
+}
+
+
+/* .scroll-to-bottom-button {
+  position: fixed;
+  right: 25px; 
+  bottom: 100px; 
+  z-index: 1000; 
+}
+
+.chat-container {
+  overflow-y: auto;
+  height: 500px; 
+} */

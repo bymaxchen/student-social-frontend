@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, useNavigate  } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { } from 'react';
 import HomePage from './pages/homePage/homePage'
 import ChatPage from './pages/chatPage/chatPage'
 import PostDetailPage from './pages/postDetailPage/postDetailPage';

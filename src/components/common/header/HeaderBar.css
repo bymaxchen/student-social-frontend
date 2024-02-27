@@ -7,17 +7,18 @@
   position: fixed;
   width: 100%;
   z-index: 1;
+  height: 7vh;
 }
 
 .logo {
   display: flex;
   align-items: center; /* This ensures vertical centering of the logo images */
-  margin-right: 24px;
+  margin-right: 15px;
 }
 
 .logo img {
   padding-top: 20px;
-  height: 32px; /* Adjust the height as needed */
+  height: 5vh; /* Adjust the height as needed */
   width: auto; /* Adjust the width automatically based on the height to maintain aspect ratio */
 }
   
@@ -26,9 +27,10 @@
 }
 
 .menu {
-  width: 350px;
+  width: 400px;
   display: flex;
   justify-content: flex-end;
+  padding-right: 20px;
 }
 
 .menu .ant-menu-item {
