@@ -61,6 +61,11 @@ export const getCurrentUser = async () => {
     throw error;
   }
 };
+
+export const editCurrentUser = async (user) => {
+  await api.put('/users/editprofile', user);
+};
+
 // get home post list
 export const getHomePostList = async (page) => {
   const response = await api.get(`/posts/homeposts?page=${page}`);
@@ -90,5 +95,7 @@ export const createComment = async (comments) => {
   const response = await api.post(`/comments/create?postId=${comments.postId}`, comments);
   return response.data; 
 };
+
+
 
 export default api;

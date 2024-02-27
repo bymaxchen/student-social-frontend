@@ -4,7 +4,7 @@ import { getOnePost } from '../../api/api';
 import HeaderBar from '../../components/common/header/HeaderBar';
 import Sidebar from '../../components/common/sidebar/sidebar';
 import Post from '../../components/business/post/post';
-import { List, Avatar, Comment,Input, Button } from 'antd';
+import { List, Avatar, Comment,Input, Button, message } from 'antd';
 import { UserOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { getComments, createComment } from '../../api/api';
 const { TextArea } = Input; // Importing TextArea
@@ -59,6 +59,8 @@ const handleCancel = () => {
     setInputFocused(false); // Optionally unfocus the input field
 
     await fetchComments();
+
+    message.success('comment successfully!');
   };
 
 
