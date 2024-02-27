@@ -1,0 +1,72 @@
+.chat-container {
+  display: flex;
+  height: 100vh;
+}
+
+.chat-list {
+  width: 30%;
+  overflow-y: auto; /* Enables scrolling for the chat list */
+  border-right: 1px solid #ccc; /* Visually separates the chat list from the chat window */
+  padding: 10px;
+}
+
+.chat-window {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: auto; /* Enables scrolling for messages */
+  padding: 10px;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-top: 1px solid #ccc; /* Visually separates the input box from the messages */
+}
+
+.input-container .ant-input {
+  flex-grow: 1;
+  /* margin-right: 10px;  */
+}
+
+.chat-sidebar {
+  width: 240px;
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+}
+
+.chat-sidebar-name {
+  margin-left: 10px;
+}
+
+.message-bubble {
+  max-width: 60%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 20px;
+  color: #fff;
+}
+
+.sent {
+  background-color: #007bff;
+  margin-left: auto; /* Aligns sent messages to the right */
+  border-bottom-right-radius: 0; /* Optional: adjusts the bubble shape for sent messages */
+}
+
+/* If you add received messages */
+.received {
+  background-color: #ccc;
+  margin-right: auto; /* Aligns received messages to the left */
+  border-bottom-left-radius: 0; /* Optional: adjusts the bubble shape for received messages */
+}
+
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  /* Keep existing styles */
+}
