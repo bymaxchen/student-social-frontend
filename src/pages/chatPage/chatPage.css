@@ -19,7 +19,7 @@
   flex-direction: column;
   align-self: right;
   justify-self: right;
-  /* background-color: aqua; */
+  background-color:whitesmoke;
 }
 
 .messages-container {
@@ -32,6 +32,7 @@
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  background-color: rgb(230, 227, 227);
   border-top: 1px solid #ccc; /* Visually separates the input box from the messages */
 }
 
