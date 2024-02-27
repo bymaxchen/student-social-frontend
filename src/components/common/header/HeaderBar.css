@@ -4,6 +4,9 @@
   justify-content: space-between;
   padding: 0 20px; /* Adjust padding as needed */
   background: #001529;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 
 .logo {
