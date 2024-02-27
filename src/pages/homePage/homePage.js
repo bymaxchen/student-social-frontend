@@ -35,7 +35,7 @@ const HomePage = () => {
     };
   return (
     <>
-      <HeaderBar/>
+      <HeaderBar reloadPosts={reloadPosts}/>
       <Sidebar/>
       <div 
         id="scrollableDiv" 
