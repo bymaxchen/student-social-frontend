@@ -52,7 +52,7 @@ const Post = ({ id, title, username: author, content, createTime, isAnonymous, l
     <Card
       onClick={navigateToPostDetail}
       title={<div style={{ display: 'flex', alignItems: 'center' }}>{title}</div>}
-      style={{ width: 600, margin: '16px auto', borderLeft: `6px solid ${borderColor}`, boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', cursor: 'pointer' }}
+      style={{ width: 600, margin: 'auto', marginBottom: '20px', borderLeft: `6px solid ${borderColor}`, boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', cursor: 'pointer' }}
       actions={[
         <LikeOutlined key="like" onClick={handleLikeClick} />,
         <span key="likes" onClick={stopPropagation}>{likes} Likes</span>,
