@@ -55,8 +55,8 @@ function SignUpPage() {
     try {
       // Substitute 'http://localhost:8081/api/signup' with your actual backend endpoint
       const response = await axios.post('/api/users/register', formData);
-      
       console.log(response.data);
+      await login({ email, password }); // Auto-login after registration
       navigate('/home'); // Redirect upon successful signup, replace '/success' with your route
     } catch (error) {
       console.error(error.response || error.message);
