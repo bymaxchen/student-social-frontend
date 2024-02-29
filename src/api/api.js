@@ -62,6 +62,16 @@ export const getCurrentUser = async () => {
   }
 };
 
+export const getAllUsers = async () => {
+  try {
+    const response =await api.get('/users/allusers');
+    return response.data;
+  } catch (error) {
+    console.error('get AllUsers error:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
 export const editCurrentUser = async (user) => {
   await api.put('/users/editprofile', user);
 };

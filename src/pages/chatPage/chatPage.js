@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Input, Button, List, Avatar } from 'antd';
 import { UserOutlined, DownOutlined } from '@ant-design/icons';
 import HeaderBar from '../../components/common/header/HeaderBar';
-
+import { getAllUsers} from "../../api/api";
 import './chatPage.css';
 
 const ChatPage = () => {
@@ -12,14 +12,17 @@ const ChatPage = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
   const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null);
-
   // Initial welcome message for each contact
-  const initialMessages = {
-    Person1: [{ text: 'Welcome to Person1 chat!', sender: 'Person1' }],
-    Person2: [{ text: 'Welcome to Person2 chat!', sender: 'Person2' }],
-    Person3: [{ text: 'Welcome to Person3 chat!', sender: 'Person3' }],
-    Person4: [{ text: 'Welcome to Person4 chat!', sender: 'Person4' }],
-  };
+  const [initialMessages, setInitialMessages] = useState({});
+
+
+  // // Initial welcome message for each contact
+  // const initialMessages = {
+  //   Person1: [{ text: 'Welcome to Person1 chat!', sender: 'Person1' }],
+  //   Person2: [{ text: 'Welcome to Person2 chat!', sender: 'Person2' }],
+  //   Person3: [{ text: 'Welcome to Person3 chat!', sender: 'Person3' }],
+  //   Person4: [{ text: 'Welcome to Person4 chat!', sender: 'Person4' }],
+  // };
 
   const simulateResponse = () => {
     // Here you can define how the "other person" generates a response.
@@ -31,8 +34,26 @@ const ChatPage = () => {
   };
 
   useEffect(() => {
-    setChatHistories(initialMessages);
+    const fetchAllUsers = async () => {
+      try {
+        const users = await getAllUsers();
+        console.log(users)
+        const initialMessagesObj = {};
+        users.forEach(user => {
+          initialMessagesObj[user.username] = [{ text: `Welcome to ${user.username} chat!`, sender: user.username }];
+        });
+        setInitialMessages(initialMessagesObj);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+
+    fetchAllUsers();
   }, []);
+
+  useEffect(() => {
+    setChatHistories(initialMessages);
+  }, [initialMessages]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -86,7 +107,7 @@ const ChatPage = () => {
     setActiveChat(contact);
   };
 
-  const contacts = ['Person1', 'Person2', 'Person3', 'Person4'];
+  const contacts = Object.keys(initialMessages);
 
   return (
     <>
