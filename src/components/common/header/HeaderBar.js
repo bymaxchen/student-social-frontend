@@ -121,7 +121,7 @@ const HeaderBar = ({ reloadPosts }) => {
             </div>
             <Search placeholder="Search CampusHub" className="search" />
             <Menu theme="dark" mode="horizontal" className="menu" selectedKeys={[location.pathname]} onClick={onClickMenu}>
-                <Menu.Item className="msg" key="/chat" icon={<MessageOutlined />}></Menu.Item>
+                <Menu.Item className="msg" key="/chat" icon={<MessageOutlined />}>Chat</Menu.Item>
                 <Menu.Item className='post' key="post" onClick={showModal} icon={<PlusOutlined />}>Create</Menu.Item>
                 <Menu.Item className='profile' key="/profile" icon={<UserOutlined />}>Profile</Menu.Item>
                 <Menu.Item className='logout' key="/logout" icon={<LogoutOutlined />}>Logout</Menu.Item>

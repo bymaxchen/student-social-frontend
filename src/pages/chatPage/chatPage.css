@@ -44,6 +44,7 @@
 .chat-sidebar-name {
   padding-right: 10px;
   color: #fff;
+  font-size: medium;
 }
 
 .ant-list .ant-list-item{
