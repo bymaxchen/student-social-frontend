@@ -43,6 +43,7 @@
   /* background-color: yellowgreen; */
   grid-area: username;
 }
+
 .popup-header-close-button{
   grid-area: close_button;
   /* background-color: aqua; */
