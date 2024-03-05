@@ -31,21 +31,23 @@
   display: flex;
   justify-content: flex-end;
   padding-right: 20px;
+  height: 7vh;
 }
 
 .menu .ant-menu-item {
   display: flex;
+  padding: 0 8px;
   align-items: center;
   justify-content: center;
 }
 
 svg{
-  height: 20px;
-  width: 20px;
+  height: 2vh;
+  width: 2vh;
 }
 
 span{
-  font-size: 11pt;
+  font-size: 9pt;
 }
 
 .ant-modal-footer{
