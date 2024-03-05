@@ -2,47 +2,29 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Input, Button, List, Avatar } from 'antd';
 import { UserOutlined, DownOutlined } from '@ant-design/icons';
 import HeaderBar from '../../components/common/header/HeaderBar';
-import { getAllUsers} from "../../api/api";
+import { getCurrentUser, getAllUsers } from "../../api/api";
 import './chatPage.css';
 
 const ChatPage = () => {
-  const [activeChat, setActiveChat] = useState(null);
   const [chatHistories, setChatHistories] = useState({});
   const [inputValue, setInputValue] = useState('');
   const [showScrollButton, setShowScrollButton] = useState(false);
+  const [webSocket, setWebSocket] = useState(null);
+  const [users, setUsers] = useState([]);
   const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null);
-  // Initial welcome message for each contact
-  const [initialMessages, setInitialMessages] = useState({});
-
-
-  // // Initial welcome message for each contact
-  // const initialMessages = {
-  //   Person1: [{ text: 'Welcome to Person1 chat!', sender: 'Person1' }],
-  //   Person2: [{ text: 'Welcome to Person2 chat!', sender: 'Person2' }],
-  //   Person3: [{ text: 'Welcome to Person3 chat!', sender: 'Person3' }],
-  //   Person4: [{ text: 'Welcome to Person4 chat!', sender: 'Person4' }],
-  // };
-
-  const simulateResponse = () => {
-    // Here you can define how the "other person" generates a response.
-    // This is a simple static example:
-    return {
-      text: `Thanks for your message! This is a simulated response.`,
-      sender: activeChat, // The "other person" is the active chat contact
-    };
-  };
+  const [receiverId, setReceiverId] = useState(null);
 
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
-        const users = await getAllUsers();
-        console.log(users)
+        const usersData = await getAllUsers();
+        setUsers(usersData);
         const initialMessagesObj = {};
-        users.forEach(user => {
-          initialMessagesObj[user.username] = [{ text: `Welcome to ${user.username} chat!`, sender: user.username }];
+        usersData.forEach(user => {
+          initialMessagesObj[user.id] = [];
         });
-        setInitialMessages(initialMessagesObj);
+        setChatHistories(initialMessagesObj);
       } catch (error) {
         console.error('Error fetching users:', error);
       }
@@ -52,8 +34,48 @@ const ChatPage = () => {
   }, []);
 
   useEffect(() => {
-    setChatHistories(initialMessages);
-  }, [initialMessages]);
+    const fetchCurrentUserAndConnectWebSocket = async () => {
+      try {
+        const user = await getCurrentUser();
+        const uid = user.id;
+        const websocket = new WebSocket("ws://127.0.0.1:8081/api/websocket/client/" + uid);
+        websocket.onopen = function () {
+          console.log("WebSocket connect success");
+        };
+
+        websocket.onmessage = function (event) {
+          //console.log('Receiver ID:', receiverId); // Log the receiverId
+          console.log('Chat Histories:', chatHistories); // Log the chatHistories
+          const receivedMessage = JSON.parse(event.data);
+          console.log('Received message:', receivedMessage);
+          setChatHistories(prevChatHistories => ({
+            ...prevChatHistories,
+            [receivedMessage.data.acceptId]: [
+              ...(prevChatHistories[receivedMessage.data.acceptId] || []),
+              receivedMessage.data
+            ]
+          }));
+        };
+
+        websocket.onclose = function () {
+          alert("WebSocket connection closed");
+        };
+
+        websocket.onerror = function (event) {
+          console.log(event)
+        };
+
+        setWebSocket(websocket);
+
+        return () => {
+          websocket.close();
+        };
+      } catch (error) {
+        console.error('Error fetching user or connecting WebSocket:', error);
+      }
+    };
+    fetchCurrentUserAndConnectWebSocket();
+  }, [receiverId]); // Reconnect WebSocket when receiverId changes
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -61,35 +83,39 @@ const ChatPage = () => {
 
   const handleScroll = () => {
     const isAtBottom =
-      messagesContainerRef.current.scrollHeight - messagesContainerRef.current.scrollTop <=
-      messagesContainerRef.current.clientHeight;
+        messagesContainerRef.current.scrollHeight - messagesContainerRef.current.scrollTop <=
+        messagesContainerRef.current.clientHeight;
     setShowScrollButton(!isAtBottom);
   };
 
   useEffect(() => {
     scrollToBottom();
-    // Add scroll listener
     const messagesContainer = messagesContainerRef.current;
     messagesContainer.addEventListener('scroll', handleScroll);
 
     return () => {
-      // Remove scroll listener on cleanup
       messagesContainer.removeEventListener('scroll', handleScroll);
     };
-  }, [chatHistories, activeChat]);
+  }, [chatHistories, receiverId]);
 
   const handleSendMessage = () => {
-    if (inputValue.trim() !== '') {
+    if (inputValue.trim() !== '' && webSocket && receiverId) {
       const userMessage = {
-        text: inputValue,
+        message: inputValue,
         sender: 'Me',
       };
-      const newChatHistories = {
-        ...chatHistories,
-        [activeChat]: [...chatHistories[activeChat], userMessage, simulateResponse()],
+      const model = {
+        message: inputValue,
+        sendType: "USER",
+        acceptId: receiverId,
       };
-      setChatHistories(newChatHistories);
+      webSocket.send(JSON.stringify(model));
+      setChatHistories(prevChatHistories => ({
+        ...prevChatHistories,
+        [receiverId]: [...prevChatHistories[receiverId], userMessage]
+      }));
       setInputValue('');
+      scrollToBottom();
     }
   };
 
@@ -103,66 +129,65 @@ const ChatPage = () => {
     }
   };
 
-  const handleContactClick = (contact) => {
-    setActiveChat(contact);
+  const handleContactClick = (contactId) => {
+    setReceiverId(contactId);
   };
 
-  const contacts = Object.keys(initialMessages);
-
   return (
-    <>
-      <HeaderBar />
-      <div className="chat-container">
-        <div className="chat-sidebar">
-          <List
-            dataSource={contacts}
-            renderItem={(item) => (
-              <List.Item
-                onClick={() => handleContactClick(item)}
-                className={activeChat === item ? 'active-chat' : ''}
-              >
-                <Avatar icon={<UserOutlined />} />
-                <div className="chat-sidebar-name">{item}</div>
-              </List.Item>
-            )}
-          />
-        </div>
-        <div className="chat-window">
-          <div className="messages-container" ref={messagesContainerRef} onScroll={handleScroll}>
-          {activeChat &&
-            chatHistories[activeChat].map((message, index) => (
-              <div key={index} className={`message-bubble ${message.sender === 'Me' ? 'sent' : 'received'}`}>
-                <div>{message.text}</div>
-                {/* <div className="message-sender">{message.sender}</div> */}
-              </div>
-            ))
-          }
-            <div ref={messagesEndRef} /> {/* Invisible element to scroll to */}
-          </div>
-          {showScrollButton && (
-            <Button
-              shape="circle"
-              icon={<DownOutlined />}
-              className="scroll-to-bottom-button"
-              onClick={scrollToBottom}
+      <>
+        <HeaderBar />
+        <div className="chat-container">
+          <div className="chat-sidebar">
+            <List
+                dataSource={users}
+                renderItem={(user) => (
+                    <List.Item
+                        key={user.id}
+                        onClick={() => handleContactClick(user.id)}
+                        className={receiverId === user.id ? 'active-chat' : ''}
+                    >
+                      <Avatar icon={<UserOutlined />} />
+                      <div className="chat-sidebar-name">{user.username}</div>
+                    </List.Item>
+                )}
             />
-          )}
-          {activeChat && (
-            <div className="input-container">
-              <Input
-                value={inputValue}
-                onChange={handleInputChange}
-                onKeyPress={handleKeyPress}
-                placeholder="Type a message..."
-              />
-              <Button id="send-button" type="primary" onClick={handleSendMessage}>
-                Send
-              </Button>
+          </div>
+          <div className="chat-window">
+            <div className="messages-container" ref={messagesContainerRef} onScroll={handleScroll}>
+              {receiverId &&
+                  chatHistories[receiverId].map((message, index) => (
+                      <div key={index} className={`message-bubble ${message.sender === 'Me' ? 'sent' : 'received'}`}>
+                        <div>{message.message}</div>
+                      </div>
+                  ))
+              }
+
+              <div ref={messagesEndRef} />
             </div>
-          )}
+            {showScrollButton && (
+                <Button
+                    shape="circle"
+                    icon={<DownOutlined />}
+                    className="scroll-to-bottom-button"
+                    onClick={scrollToBottom}
+                />
+            )}
+            {receiverId && (
+                <div className="input-container">
+                  <Input
+                      value={inputValue}
+                      onChange={handleInputChange}
+                      onKeyPress={handleKeyPress}
+                      placeholder="Type a message..."
+                  />
+                  <Button id="send-button" type="primary" onClick={handleSendMessage}>
+                    Send
+                  </Button>
+                </div>
+            )}
+          </div>
         </div>
-      </div>
-    </>
+      </>
   );
 };
 
