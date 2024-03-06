@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Input, Button, List, Avatar } from 'antd';
 import { UserOutlined, DownOutlined } from '@ant-design/icons';
 import HeaderBar from '../../components/common/header/HeaderBar';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+import { Client } from '@stomp/stompjs';
 import { getAllUsers} from "../../api/api";
 import './chatPage.css';
 
@@ -14,6 +17,79 @@ const ChatPage = () => {
   const messagesContainerRef = useRef(null);
   // Initial welcome message for each contact
   const [initialMessages, setInitialMessages] = useState({});
+
+
+  const [stompClient, setStompClient] = useState(null);
+  const [connected, setConnected] = useState(false);
+
+
+  const [client, setClient] = useState(null);
+
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      try {
+        const users = await getAllUsers();
+        console.log(users)
+        const initialMessagesObj = {};
+        users.forEach(user => {
+          initialMessagesObj[user.username] = [];
+        });
+        setInitialMessages(initialMessagesObj);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+
+     fetchAllUsers();
+  }, []);
+
+  const activeChatRef = useRef(activeChat);
+  useEffect(() => {
+
+    activeChatRef.current = activeChat;
+    const stompClient = new Client({
+      brokerURL: "ws://localhost:8081/chat",
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+      onConnect: () => {
+        console.log('Connected to WS');
+
+        // Subscribe to a topic
+        stompClient.subscribe('/topic/public', (message) => {
+          // Called when the client receives a message
+          const newMessage = JSON.parse(message.body);
+
+          // not my message
+          if (newMessage.sendName !== localStorage.getItem("username")) {
+            console.log("11111" + "_" + newMessage.text);
+            console.log("11111" + "_" + JSON.stringify(newMessage));
+            
+            console.log(activeChatRef.current);
+            console.log(chatHistories);
+
+            setChatHistories((currentChatHistories) => {
+              const newChatHistory = currentChatHistories[activeChatRef.current]
+                ? [...currentChatHistories[activeChatRef.current], newMessage]
+                : [newMessage];
+              return { ...currentChatHistories, [activeChatRef.current]: newChatHistory };
+            });         
+          }
+        });
+      },
+      onDisconnect: () => {
+        console.log('Disconnected');
+      }
+    });
+
+    stompClient.activate();
+    setClient(stompClient);
+    return () => {
+      stompClient.deactivate();
+    };
+  }, [activeChat]);
+
+
 
 
   // // Initial welcome message for each contact
@@ -33,27 +109,6 @@ const ChatPage = () => {
     };
   };
 
-  useEffect(() => {
-    const fetchAllUsers = async () => {
-      try {
-        const users = await getAllUsers();
-        console.log(users)
-        const initialMessagesObj = {};
-        users.forEach(user => {
-          initialMessagesObj[user.username] = [{ text: `Welcome to ${user.username} chat!`, sender: user.username }];
-        });
-        setInitialMessages(initialMessagesObj);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
-
-    fetchAllUsers();
-  }, []);
-
-  useEffect(() => {
-    setChatHistories(initialMessages);
-  }, [initialMessages]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -79,16 +134,28 @@ const ChatPage = () => {
   }, [chatHistories, activeChat]);
 
   const handleSendMessage = () => {
+
+
     if (inputValue.trim() !== '') {
+      if (client && client.activate) {
+        client.publish({destination: '/topic/public', body: JSON.stringify({ 
+          sendName: localStorage.getItem("username"),
+          receiverName: activeChat,
+          text: inputValue.trim()
+         })});
+      }
+
+
       const userMessage = {
         text: inputValue,
         sender: 'Me',
       };
-      const newChatHistories = {
-        ...chatHistories,
-        [activeChat]: [...chatHistories[activeChat], userMessage, simulateResponse()],
-      };
-      setChatHistories(newChatHistories);
+      setChatHistories((currentChatHistories) => {
+        const newChatHistory = currentChatHistories[activeChat]
+          ? [...currentChatHistories[activeChat], userMessage]
+          : [userMessage];
+        return { ...currentChatHistories, [activeChat]: newChatHistory };
+      }); 
       setInputValue('');
     }
   };
@@ -104,7 +171,13 @@ const ChatPage = () => {
   };
 
   const handleContactClick = (contact) => {
+    console.log(contact + "contact----------");
     setActiveChat(contact);
+    console.log(chatHistories[contact]);
+    if (chatHistories[contact] == null) {
+      chatHistories[contact] = [];
+      setChatHistories(chatHistories);
+    }
   };
 
   const contacts = Object.keys(initialMessages);
